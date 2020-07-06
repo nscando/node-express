@@ -3,7 +3,7 @@ var router = express.Router();
 
 const wishlistConstroller = require("../controllers/wishlistController")
 
-/* GET products listing. */
+/* GET wishlist listing. */
 
 router.get('/', wishlistConstroller.getAll);
 
