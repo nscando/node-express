@@ -1,53 +1,71 @@
+const productsModel = require("../models/productsModels")
+
+
 module.exports = {
-     getAll: function (req, res, next) {
-          console.log(req.params.id);
-          console.log(req.query);
 
-          let products = [
-               {
-                    id: 1,
-                    name: 'Drumpad 2'
-               },
-               {
-                    id: 2,
-                    name: 'Tama Drums'
-               },
-          ]
-          res.json(products)
+     getAll: async function (req, res, next) {
+
+          console.log(req.query)
+          try {
+               let products = await productsModel.find({})
+
+               res.json(products)
+          } catch (e) {
+               next(e)
+          }
+
+
      },
 
-     getById: function (req, res, next) {
+     getById: async function (req, res, next) {
           console.log(req.params.id);
 
+          try {
+               let products = await productsModel.findById(req.params.id)
 
-          let products = [
-               {
-                    id: 1,
-                    name: 'Drumpad'
-               },
+               res.json(products)
+          } catch (e) {
+               next(e)
+          }
 
-          ]
-          res.json(products)
      },
 
-     create: function (req, res, next) {
-          console.log(req.body);
-          console.log(req.params);
+     create: async function (req, res, next) {
+          console.log(req.body)
+          try {
+               let product = new productsModel({
+                    name: req.body.name,
+                    sku: req.body.sku,
+                    description: req.body.description,
+                    price: req.body.price,
+                    quantity: req.body.quantity
+               })
+               let document = await product.save()
+               res.json(document)
+          } catch (e) {
+               next(e)
+          }
 
-          res.send('postman CREATE works!')
      },
 
-     delete: function (req, res, next) {
 
-          console.log(req.params);
+     delete: async function (req, res, next) {
 
-          res.send('postman DELETE works!')
+          try {
+               let product = await productsModel.update({ _id: req.params.id }, req.body, { multi: false })
+               res.json(product)
+          } catch (e) {
+               next(e)
+          }
+
      },
 
-     update: function (req, res, next) {
-
-          console.log(req.params);
-
-          res.send('postman UPDATE works!')
+     update: async function (req, res, next) {
+          try {
+               let product = await productsModel.update({ _id: req.params.id }, req.body, { multi: false })
+               res.json(product)
+          } catch (e) {
+               next(e)
+          }
      },
 }

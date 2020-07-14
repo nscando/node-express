@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-const productsConstroller = require("../controllers/wishlistController")
+const productsConstroller = require("../controllers/productsController")
 
 /* GET products listing. */
 
 router.get('/', productsConstroller.getAll);
 
-router.get('/', productsConstroller.getById)
+router.get('/:id', productsConstroller.getById)
 
-router.post('/:id', productsConstroller.create)
+router.post('/', productsConstroller.create)
 
 router.delete('/:id', productsConstroller.delete)
 
