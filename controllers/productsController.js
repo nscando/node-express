@@ -52,7 +52,7 @@ module.exports = {
      delete: async function (req, res, next) {
 
           try {
-               let product = await productsModel.update({ _id: req.params.id }, req.body, { multi: false })
+               let product = await productsModel.deleteOne({ _id: req.params.id })
                res.json(product)
           } catch (e) {
                next(e)
@@ -62,7 +62,7 @@ module.exports = {
 
      update: async function (req, res, next) {
           try {
-               let product = await productsModel.update({ _id: req.params.id }, req.body, { multi: false })
+               let product = await productsModel.updateOne({ _id: req.params.id }, req.body, { multi: false })
                res.json(product)
           } catch (e) {
                next(e)

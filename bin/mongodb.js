@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/appNode', {
      useNewUrlParser: true,
-     useUnifiedTopology: true
+     useUnifiedTopology: true,
+     useCreateIndex: true
 }, function (error) {
      if (error) {
           throw error;

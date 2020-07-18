@@ -12,6 +12,7 @@ var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 
 var app = express();
+app.set('secretKey', 'appNode')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
