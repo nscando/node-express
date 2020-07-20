@@ -6,6 +6,7 @@ module.exports = {
      getAll: async function (req, res, next) {
 
           console.log(req.query)
+          console.log("UserToken", req.body.userToken)
           try {
                let products = await productsModel.find({})
 

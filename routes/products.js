@@ -16,3 +16,6 @@ router.delete('/:id', productsConstroller.delete)
 router.put('/:id', productsConstroller.update)
 
 module.exports = router;
+
+//ejemplo para aplicar middleware en el route ej.
+//router.get('/', (req, res, next) => { req.app.validateUser(req, res, next) }, productsConstroller.getAll);
