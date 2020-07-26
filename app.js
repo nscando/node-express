@@ -12,6 +12,7 @@ var productsRouter = require('./routes/products');
 var wishlistRouter = require('./routes/wishlist');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
+var cartRouter = require('./routes/cart');
 
 var app = express();
 app.set('secretKey', process.env.SECRET_KEY)
@@ -26,12 +27,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/** HEADER INICIO */
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE,PUT');
+  next();
+});
+app.options("/*", function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With,x-access-token');
+  res.send(200);
+});
+/** HEADER FIN */
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', validateUser, productsRouter);
+app.use('/products', productsRouter);
 app.use('/wishlist', wishlistRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
+app.use('/cart', cartRouter);
 
 function validateUser(req, res, next) {
   console.log(req.app.get('secretKey'))

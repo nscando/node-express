@@ -39,7 +39,9 @@ module.exports = {
                     sku: req.body.sku,
                     description: req.body.description,
                     price: req.body.price,
-                    quantity: req.body.quantity
+                    quantity: req.body.quantity,
+                    imageUrl: req.body.imageUrl
+
                })
                let document = await product.save()
                res.json(document)
